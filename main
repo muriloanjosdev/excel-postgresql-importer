@@ -1,0 +1,43 @@
+import pandas as pd
+from sqlalchemy import create_engine
+
+EXCEL_PATH = r"C:\Users\User\Desktop\SeuArquivoExcel.xlsx"
+
+DB_CONFIG = {
+    "host": "localhost",
+    "port": 5432,
+    "database": "nome_db",
+    "user": "user_db",
+    "password": "senha_db",
+}
+
+SHEETS = {
+    "Aba1": "nome_tabela_noDB",
+    "Aba2": "nome_tabela_noDB"
+}
+
+IF_EXISTS = "replace"
+
+def get_engine(cfg):
+    url = (
+        f"postgresql+psycopg2://{cfg['user']}:{cfg['password']}"
+        f"@{cfg['host']}:{cfg['port']}/{cfg['database']}"
+    )
+    return create_engine(url)
+
+def import_sheets(excel_path, sheets, engine, if_exists):
+    for sheet_name, table_name in sheets.items():
+        df = pd.read_excel(excel_path, sheet_name=sheet_name)
+
+        df.to_sql(
+            name=table_name,
+            con=engine,
+            if_exists=if_exists,
+            index=False,
+            chunksize=1000,
+        )
+
+if __name__ == "__main__":
+    engine = get_engine(DB_CONFIG)
+    import_sheets(EXCEL_PATH, SHEETS, engine, IF_EXISTS)
+    print("Importação concluída!")
