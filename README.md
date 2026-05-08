@@ -1,4 +1,4 @@
-# Importador Excel → PostgreSQL
+# Importador Excel para PostgreSQL
  
 Script Python que importa dados de um arquivo Excel para tabelas no PostgreSQL.
  
@@ -30,5 +30,5 @@ Edite as variáveis no topo do `main.py`:
 ## Como rodar
  
 ```bash
-python import.py
+python main.py
 ```
