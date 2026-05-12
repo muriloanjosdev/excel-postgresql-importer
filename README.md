@@ -66,6 +66,6 @@ ALTER TABLE produtos RENAME COLUMN "Preço Unitário (R$)"  TO preco_unitario;
  
 ---
  
-### Passo 3 — Rodar os comandos SQL
+### Passo 3 — Dashboard, Rodar os comandos SQL
  
 Com as colunas já renomeadas, rode diretamente no seu cliente SQL (pgAdmin) os comandos contidos em `commands.sql`.
